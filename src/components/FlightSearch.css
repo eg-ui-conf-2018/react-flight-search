@@ -1,0 +1,18 @@
+.fs-container {
+    display: flex;
+}
+
+.fs-container .form-group {
+    margin-right: 8px;
+    flex-grow: 1;
+}
+
+.react-datepicker-wrapper {
+    margin-right: 8px;
+}
+
+.react-datepicker__input-container > input {
+    padding: 12px 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}

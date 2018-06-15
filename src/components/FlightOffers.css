@@ -1,0 +1,27 @@
+.fs-offers {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: auto;
+    margin-top: 64px;
+}
+
+.fs-offers-loading {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.fs-offer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    padding: 32px;
+    border: 1px solid #e6d6d6;
+    border-radius: 5px;
+    flex-shrink: 0;
+}
+
+.fs-offer-col {
+    display: flex;
+    flex-direction: column;
+}
