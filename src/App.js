@@ -3,7 +3,6 @@ import './App.css';
 import FlightSearch from './components/FlightSearch';
 import FlightOffers from './components/FlightOffers';
 import {stringify} from 'query-string';
-import mockFetch from './mock-response';
 
 const SEARCH_URL = "https://apim.expedia.com/x/mflights/search";
 
@@ -53,12 +52,15 @@ class App extends Component {
           key: '<api-key>'
       };
 
-      // NOTE: This should be one of the last thing that you do.
-      // TODO: remove the mockFetch, and replace it with an actual fetch to the Expedia API
-      const results = await mockFetch(`${SEARCH_URL}?${stringify(searchCriteria)}`);
+      this.setState({isSearching: true});
+      const response = await fetch(`${SEARCH_URL}?${stringify(searchCriteria)}`);
+      const results = await response.json();
       console.log(results);
-
-      // TODO: capture the search results here
+      this.setState({
+          legs: results.legs,
+          offers: results.offers,
+          isSearching: false
+      });
   }
 
   render() {

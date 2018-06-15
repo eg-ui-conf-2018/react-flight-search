@@ -21,22 +21,55 @@ export default class extends PureComponent {
             departureDate: null,
             returnDate: null
         };
+
+        this.onInputChange = this.onInputChange.bind(this);
+        this.departureDateChange = this.departureDateChange.bind(this);
+        this.returnDateChange = this.returnDateChange.bind(this);
+        this.onSearchFlights = this.onSearchFlights.bind(this);
     }
 
     onInputChange(e) {
-        /* TODO: capture origin and destination airport codes */
+        this.setState({
+            [e.target.id]: e.target.value
+        });
     }
 
     departureDateChange(date) {
-        /* TODO: capture departure date */
+        this.setState({
+            departureDate: date
+        });
     }
 
     returnDateChange(date) {
-        /* TODO: capture return date */
+        this.setState({
+            returnDate: date
+        });
+    }
+
+    validateInputs() {
+        if (this.state.origin.length === 0) {
+            return false;
+        }
+        if (this.state.destination.length === 0) {
+            return false;
+        }
+        if (!this.state.departureDate) {
+            return false;
+        }
+        if (!this.state.returnDate) {
+            return false;
+        }
+
+        return true;
     }
 
     onSearchFlights() {
-        /* TODO: invoke the flight search */
+        this.props.searchFlights(
+            this.state.origin,
+            this.state.destination,
+            this.state.departureDate.format('YYYY-MM-DD'),
+            this.state.returnDate.format('YYYY-MM-DD')
+        );
     }
 
     render() {
@@ -47,7 +80,7 @@ export default class extends PureComponent {
                         type="text"
                         placeholder="Origin"
                         value={this.state.origin}
-                        onChange={() => {} /* TODO: hook up the callback to capture origin textbox */}
+                        onChange={this.onInputChange}
                     />
                 </FormGroup>
                 <FormGroup controlId="destination" bsSize="large">
@@ -55,24 +88,24 @@ export default class extends PureComponent {
                         type="text"
                         placeholder="Destination"
                         value={this.state.destination}
-                        onChange={() => {} /* TODO: hook up the callback to capture destination textbox */}
+                        onChange={this.onInputChange}
                     />
                 </FormGroup>
                 <DatePicker
                     placeholderText="Departure date"
                     selected={this.state.departureDate}
-                    onChange={() => {} /* TODO: hook up the callback to capture departureDate */}
+                    onChange={this.departureDateChange}
                 />
                 <DatePicker
                     placeholderText="Return date"
                     selected={this.state.returnDate}
-                    onChange={() => {} /* TODO: hook up the callback to capture returnDate */}
+                    onChange={this.returnDateChange}
                 />
                 <Button
                     bsStyle="primary"
                     style={{height: '46px'}}
                     bsSize="large"
-                    onClick={() => {} /* TODO: hook up the callback to invoke flight search API call */}
+                    onClick={this.onSearchFlights}
                 >
                   {'Search'}
                 </Button>

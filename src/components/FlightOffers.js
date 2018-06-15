@@ -81,9 +81,13 @@ const FlightOffers = ({isLoading, legs = [], offers}) => {
     return (
         <div className="fs-offers">
             {
-                // TODO: for each leg
-                // 1. Call getOffersForLeg function to find the corresponding offers
-                // 2. Pass the required props to render OfferCard component
+                legs.map((leg) =>
+                    <OfferCard
+                        key={leg.legId}
+                        leg={leg}
+                        offers={getOffersForLeg(leg, offers)}
+                    />
+                )
             }
         </div>
     );
