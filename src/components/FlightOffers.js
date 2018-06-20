@@ -3,7 +3,10 @@ import './FlightOffers.css';
 import moment from 'moment';
 import {ScaleLoader} from 'react-spinners';
 
-// offers is sorted from lowest to highest
+/*
+Takes in an array of offers sorted by price in ascending order and returns
+a string describing their price range. e.g. "123.45 - 678.90 (12 offers)"
+*/
 const getOfferPrices = function(offers) {
     if (offers.length <= 0) {
         return 'No offers';
@@ -20,10 +23,15 @@ const getOfferPrices = function(offers) {
         return `${lowestOffer.totalFarePrice.formattedWholePrice} (${offers.length} offers)`;
     }
 
-    return `${lowestOffer.totalFarePrice.formattedWholePrice} - ${highestOffer.totalFarePrice.formattedWholePrice} (${offers.length} offers)`
+    return `${lowestOffer.totalFarePrice.formattedWholePrice} - ${highestOffer.totalFarePrice.formattedWholePrice} (${offers.length} offers)`;
 };
 
-// offers is sorted from lowest to highest
+/*
+A React component that outputs a display card for a flight leg.
+Input props:
+    leg: A flight leg
+    offers: an array of offers sorted by price in ascending order
+*/
 const OfferCard = ({leg, offers}) => {
     const segments = leg.segments;
     const departureTime = moment(segments[0].departureTime);
@@ -31,7 +39,7 @@ const OfferCard = ({leg, offers}) => {
     const durationAsMinutes = arrivalTime.diff(departureTime, 'minutes', true);
     const hourDuration = parseInt(durationAsMinutes / 60, 10);
     const minuteDuration = durationAsMinutes % 60;
-    console.log('offers for legId="%s"', leg.legId, offers);
+    // console.log('offers for legId="%s"', leg.legId, offers);
     return (
         <div className="fs-offer">
             <div className="fs-offer-col">
@@ -59,7 +67,13 @@ const OfferCard = ({leg, offers}) => {
     );
 };
 
-// find the offers for a given leg
+/*
+A function to get the offers for a specific flight leg
+sorted by price in ascending order.
+Arguments:
+    leg: A flight leg
+    offers: Unsorted offers for all flight legs
+*/
 const getOffersForLeg = (leg, offers) =>
     offers.filter((offer) => {
         return offer.legIds.includes(leg.legId);
@@ -69,11 +83,20 @@ const getOffersForLeg = (leg, offers) =>
         return fareA - fareB;
     });
 
-const FlightOffers = ({isLoading, legs = [], offers}) => {
+/*
+A React component that outputs all of the flight search results.
+Input props:
+    isLoading: a boolean that represents whether or not results are loading
+    legs: an array of flight legs
+    offers: an array of offers for all flight legs
+*/
+const FlightOffers = ({isLoading = false, legs = [], offers = []}) => {
     if (isLoading) {
         return (
             <div className="fs-offers">
-                <div className="fs-offers-loading"><ScaleLoader isLoading/></div>
+                <div className="fs-offers-loading">
+                    <ScaleLoader isLoading />
+                </div>
             </div>
         );
     }
@@ -83,7 +106,7 @@ const FlightOffers = ({isLoading, legs = [], offers}) => {
             {
                 // TODO: for each leg
                 // 1. Call getOffersForLeg function to find the corresponding offers
-                // 2. Pass the required props to render OfferCard component
+                // 2. Send the leg and those offers to the OfferCard component
             }
         </div>
     );

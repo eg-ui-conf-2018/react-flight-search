@@ -3,7 +3,7 @@ import './App.css';
 import FlightSearch from './components/FlightSearch';
 import FlightOffers from './components/FlightOffers';
 import {stringify} from 'query-string';
-import mockFetch from './mock-response';
+import mockFetch from './mock-fetch';
 
 const SEARCH_URL = "https://apim.expedia.com/x/mflights/search";
 
@@ -11,12 +11,12 @@ const SEARCH_URL = "https://apim.expedia.com/x/mflights/search";
 *
 * TASKS:
 *
+* Look for the TODO comments in each file and complete the code there.
+*
 * In FlightSearch.js:
 *     1. Capture all of the user inputs
 *     2. Invoke the search API when the submit button is clicked
-*
-*     Good to haves:
-*     1. input validation (ensure that user supplied input is valid before invoking the API call)
+*     3. Bonus (optional): input validation - ensure that user supplied input is valid before invoking the API call
 *
 * In App.js
 *     1. Capture the API response, and set proper loading states
@@ -27,20 +27,16 @@ const SEARCH_URL = "https://apim.expedia.com/x/mflights/search";
 * In App.js
 *     1. remove the mockFetch, and replace it with an actual fetch to the Expedia API
 *
+* Other optional bonus tasks:
+*     1. Add propTypes to all React components
+*     2. Use Redux to manage your state
+*     3. Write tests
 */
 class App extends Component {
+  constructor(props) {
+      super(props);
 
-  constructor() {
-      super();
       this.searchFlights = this.searchFlights.bind(this);
-
-      this.state = {
-          // Display a loading indicator while the fetch is happening
-          isSearching: false,
-          // Specific to the Expedia search API response
-          legs: [],
-          offers: []
-      };
   }
 
   async searchFlights(origin, destination, departureDate, returnDate) {
@@ -53,12 +49,19 @@ class App extends Component {
           key: '<api-key>'
       };
 
-      // NOTE: This should be one of the last thing that you do.
-      // TODO: remove the mockFetch, and replace it with an actual fetch to the Expedia API
-      const results = await mockFetch(`${SEARCH_URL}?${stringify(searchCriteria)}`);
-      console.log(results);
+      /*
+      TODO: remove the mockFetch, and replace it with an actual fetch to the Expedia API.
 
-      // TODO: capture the search results here
+      The argument here in the mockFetch should already be a working URL,
+      but the API docs can be found here:
+      https://hackathon.expedia.com/docs/public/api/Flight%20Search/
+
+      An example URL for a flight Search from SEA to LAS:
+      https://apim.expedia.com/x/mflights/search?departureDate=2017-03-28&returnDate=2017-03-30&departureAirport=SEA&arrivalAirport=LAS
+      */
+      const results = await mockFetch(`${SEARCH_URL}?${stringify(searchCriteria)}`);
+
+      // TODO: capture the search results
   }
 
   render() {
@@ -68,11 +71,11 @@ class App extends Component {
           <h1 className="App-title">Flight Search Workshop</h1>
         </header>
         <div className="App-content">
-          <FlightSearch searchFlights={this.searchFlights}/>
+          <FlightSearch
+              /* TODO: send this component a function to call to initiate the search (available here as `this.searchFlights`) */
+          />
           <FlightOffers
-              legs={this.state.legs}
-              offers={this.state.offers}
-              isLoading={this.state.isSearching}
+              /* TODO: send this component the legs, offers, and whether or not the results are loading */
           />
         </div>
       </div>
