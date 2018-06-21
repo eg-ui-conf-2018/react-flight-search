@@ -14,11 +14,11 @@ The repository has 2 branches:
 *   __master__: This branch contains this README, as well as a partial, fill-in-the-blanks solution.
 *   __[solution](https://github.com/eg-ui-conf-2018/react-flight-search/tree/solution)__: The complete solution to the exercise.
 
-If you choose to start with the __partial__ branch, clone the branch, run `npm install`, and skip to [Write the React Components](#write-the-react-components) to get started.
+If you choose to start with the __master__ branch, clone the branch, run `npm install && npm start`, and skip to [Write the React Components](#write-the-react-components) to get started.
 
 ## Create a new React application
 
-_NOTE: This section is not necessary if you are starting with the __partial__ (or solution) branch._
+_NOTE: This section is not necessary if you are starting with the __master__ (or solution) branch._
 
 It normally takes a lot of time to properly set up and configure a development environment for a React application. Luckily, there are many existing ones to choose from. For this workshop, we will use the [create-react-app](https://github.com/facebook/create-react-app#creating-an-app) template.
 
@@ -39,7 +39,7 @@ Your default browser will automatically open to `localhost:3000` which is where 
 
 ## Install dependencies
 
-_NOTE: This section is not necessary if you are starting with the __partial__ (or solution) branch._
+_NOTE: This section is not necessary if you are starting with the __master__ (or solution) branch._
 
 Code re-use is always encouraged in software development. Many libraries and packages have been published to central servers for other engineers to use. Similar to Maven (`mvn`) in the Java world, JavaScript uses NPM (`npm`) as the package management registry. To save us time, we will install the following libraries and React components.
 
@@ -91,7 +91,7 @@ $ npm install react-bootstrap --save
 
 ## Write the React components
 
-_NOTE: If you started with the __partial__ branch, be sure to first run `npm install` before getting started here._
+_NOTE: If you started with the __master__ branch, be sure to first run `npm install && npm start` before getting started here._
 
 There is no right or wrong way to build the application. The purpose of the exercise is to help people get a bird's eye view of a React application. However, there are a few best practices that might help.
 
